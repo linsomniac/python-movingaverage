@@ -1,0 +1,13 @@
+Written by Sean Reifschneider  <jafo@tummy.com>
+Released into the Public Domain
+2011-02-05
+
+Module to compute the moving average of a list.  For example:
+
+   from movingaverage import movingaverage
+   print list(movingaverage([1,2,3,4,5,6], 3))
+   >>> [2,3,4,5]
+
+movingaverage(data, sample_size):
+   Return the moving averages of the data, with a window size of
+   `sample_size`.  `sample_size` must be an integer greater than 0.
