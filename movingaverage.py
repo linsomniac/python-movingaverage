@@ -18,8 +18,7 @@ if __name__ == '__main__':
 
 	class TestMovingAverage(unittest.TestCase):
 		def test_Basic(self):
-			with self.assertRaises(ValueError):
-				movingaverage([1,2,3], 0)
+			self.assertRaises(ValueError, movingaverage, [1,2,3], 0)
 			self.assertEqual(list(movingaverage([1,2,3,4,5,6], 1)), [1,2,3,4,5,6])
 			self.assertEqual(list(movingaverage([1,2,3,4,5,6], 2)), [1,2,3,4,5])
 			self.assertEqual(list(movingaverage(map(float, [1,2,3,4,5,6]), 2)),
