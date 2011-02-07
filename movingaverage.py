@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-#  Copyright (c) 2011, Sean Reifschneider, tummy.com, ltd.
-#  All Rights Reserved.
+#  Sean Reifschneider, tummy.com, ltd.  <jafo@tummy.com>
+#  Released into the Public Domain, 2011-02-06
 
 def movingaverage(data, sample_size):
 	'''Return the moving averages of the data, with a window size of
