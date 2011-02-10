@@ -8,6 +8,12 @@ Module to compute the moving average of a list.  For example:
    print list(movingaverage([1,2,3,4,5,6], 3))
    >>> [2,3,4,5]
 
+NOTE: Another option is the "stats" pacakge, which is currently (Feb 2011)
+in early development.  The author of that package says that it includes
+several moving average functions.  I haven't used it, because I didn't find
+out about it until after I wrote this.  For more information see:
+http://pypi.python.org/pypi/stats/
+
 movingaverage(data, subset_size, data_is_list = None, avoid_fp_drift = True)
 
    Return the moving averages of the data, with a window size of
