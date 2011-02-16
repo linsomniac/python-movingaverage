@@ -4,7 +4,31 @@
 #  Released into the Public Domain, 2011-02-06
 
 import itertools
+from itertools import islice
 from collections import deque
+
+
+#########################################################
+def movingaverage2(data, subset_size, data_is_list = None,
+		avoid_fp_drift = True):
+	if subset_size < 1:
+		raise ValueError('subset_size must be 1 or larger')
+
+	data = iter(data)
+	ring_offset = 0
+	ring = list(islice(data, subset_size))
+	if subset_size > len(ring):
+		raise ValueError('subset_size must be smaller than data set size')
+
+	s = sum(ring)
+	divisor = float(subset_size)
+	yield s / divisor
+
+	for elem in data:
+		s += elem - ring[ring_offset]
+		ring[ring_offset] = elem
+		ring_offset = (ring_offset + 1) % subset_size
+		yield s / divisor
 
 
 #########################################################
@@ -56,7 +80,7 @@ def movingaverage(data, subset_size, data_is_list = None,
 		#  Based on the recipe at:
 		#     http://docs.python.org/library/collections.html#deque-recipes
 		it = iter(data)
-		d = deque(itertools.islice(it, subset_size))
+		d = deque(islice(it, subset_size))
 
 		if subset_size > len(d):
 			raise ValueError('subset_size must be smaller than data set size')

@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import time, movingaverage
+import itertools
+from collections import deque
+
+def moving_average(iterable, n=3):
+   # moving_average([40, 30, 50, 46, 39, 44]) --> 40.0 42.0 45.0 43.0
+   # http://en.wikipedia.org/wiki/Moving_average
+   it = iter(iterable)
+   d = deque(itertools.islice(it, n-1))
+   d.appendleft(0)
+   s = sum(d)
+   for elem in it:
+      s += elem - d.popleft()
+      d.append(elem)
+      yield s / float(n)
+
+count = 10000
+
+data = list(range(1000))
+for window in range(1, 50, 5):
+   for algorithm in (movingaverage.movingaverage2, movingaverage.movingaverage):
+      for i in range(3):
+         start_time = time.time()
+         for i in xrange(count):
+            sum(algorithm(data, window))
+         end_time = time.time()
+
+         name = 'old'
+         if algorithm == movingaverage.movingaverage2: name = 'ring'
+
+         print '%s: %s loops, window %d in %0.4s seconds, %d/sec' % ( name,
+               count, window, end_time-start_time,
+               count / ( end_time-start_time ))
